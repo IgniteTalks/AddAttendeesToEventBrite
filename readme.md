@@ -38,14 +38,3 @@ This script automates that process, so you can easily import multiple attendees 
 2. You are logged into your account and directly taken to your event home page.
 3. Each attendee in the text file you provide is added one-by-one to your event.
 4. After 50 or so additions, Eventbrite times out and the script needs to be restarted, starting at the last member that was added.
-
-# Licenses
-## AddAttendees.py File:
-```
-Title: AddAttendees.py
-Author: slead
-Date: 2015
-Availability: https://github.com/IgniteTalks/AddAttendeesToEventBrite/blob/master/AddAttendees.py
-License: https://github.com/IgniteTalks/AddAttendeesToEventBrite/blob/master/license
-The codebase above is based on the following repository: https://github.com/IgniteTalks/AddAttendeesToEventBrite
-```
