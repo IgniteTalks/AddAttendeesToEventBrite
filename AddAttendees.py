@@ -1,56 +1,89 @@
-import sys, time
+import sys
+import time
 try:
     from selenium import webdriver
-    from selenium.webdriver.common.keys import Keys
-except:
-    msg = "Please instatall Selenium"
+    from selenium.webdriver.common.by import By
+except Exception as exception:
+    print(exception)
+    msg = "Please install Selenium"
     print(msg)
     sys.exit(msg)
 
-login = "<your eventbrite username>"
-pwd = "<your eventbrite password>"
-attendeeList = "path_to_the_attendee_list.txt" #Tab-delimited file containing the firstname, surname and email address of your attendees
+# Add Login Credentials
+login = "<Your Eventbrite Username>"
+pwd = "<Your Eventbrite Password>"
 
-eventID = "123456" #eg open your event then see the URL to obtain the ID, eg https://www.eventbrite.com.au/myevent?eid=123456
-ticketID = "quant_98765" #Use the Dev Tools inspector to determine the ID of the ticket type you wish to add (http://i.imgur.com/RIYANW1.png)
+# Comma-delimited file containing the firstname, surname and email address of your attendees (see ReadMe for example)
+attendeeList = "attendees_list_example.txt"
 
-#Open a browser at the event homepage
-fp = webdriver.FirefoxProfile()
-browser = webdriver.Firefox(firefox_profile=fp)
-browser.get("https://www.eventbrite.com.au/attendees-add?eid=" + str(eventID))
-username = browser.find_element_by_id("login-email")
-password = browser.find_element_by_id("login-password")
-username.send_keys(login)
-password.send_keys(pwd)
-loginButton = browser.find_element_by_xpath(".//*[@id='authentication-container']/div/div/form/div[2]/div/div[4]/input")
+# Your Current Event's Information
+eventID = "123456" # Open your event then see the URL to obtain the ID, eg https://www.eventbrite.com/myevent?eid=123456
+ticketID = "quant_632892259" # Use the Dev Tools inspector to determine the ID of the ticket type you wish to add (https://i.imgur.com/isWfSJe.png)
+
+# Opens a new Chrome browser
+try:
+    browser = webdriver.Chrome()
+except Exception as exception:
+    print(exception)
+    msg = "Please install ChromeDriver"
+    print(msg)
+    sys.exit(msg)
+
+# Opens Eventbrite "Add Attendees" page, prompts user login first
+browser.get(
+    "https://www.eventbrite.com/attendees-add?eid={0}".format(str(eventID)))
+username = browser.find_element(By.ID, "email").send_keys(login)
+password = browser.find_element(By.ID, "password").send_keys(pwd)
+time.sleep(2)
+
+# Clicks "Login" button
+loginButton = browser.find_element(
+    By.XPATH, '//*[@id="root"]/div/div[2]/div/div/div/div[1]/div/main/div/div[1]/div/div[2]/div/form/div[4]/div/button')
 loginButton.click()
 time.sleep(10)
 
-#Iterate through each name in the input file
+# Iterates through and registers each attendee in the attendee list
 with open(attendeeList) as inFile:
     lines = inFile.readlines()
     for line in lines:
-        tokens = line.split("\t")
+        # Splits the current customers information and stores it in an array
+        tokens = line.split(",")
         firstname = tokens[0]
         surname = tokens[1]
-        email = tokens[2]
-        print("Adding " + firstname + " " + surname + " (" + email + ")")
-        
-        #Add each person to the guest list
+        email = tokens[-1]
+        print("Adding {0} {1} ({2})".format(firstname, surname, email))
+
+        # Add each person to the event from the attendee list
         try:
-            browser.get("https://www.eventbrite.com.au/attendees-add?eid=" + str(eventID))
+            # Open "Add Attendees" page for current event
+            browser.get(
+                "https://www.eventbrite.com/attendees-add?eid={0}".format(str(eventID)))
             time.sleep(10)
-            quantity = browser.find_element_by_id(ticketID)
-            quantity.send_keys("1")
-            continueBtn = browser.find_element_by_xpath(".//*[@id='content']/div/div/div[2]/div/section/section/form/div[4]/div/a")
-            continueBtn.click()
+
+            # Populates ticket purchase amount for current customer
+            ticket_quantity = browser.find_element(By.ID, ticketID)
+            ticket_quantity.send_keys("1")
+            time.sleep(2)
+
+            # Clicks "Continue" button
+            continue_btn = browser.find_element(By.XPATH, '//*[@id="continue-attendee"]').click()
             time.sleep(10)
-            browser.find_element_by_id("first_name").send_keys(firstname)
-            browser.find_element_by_id("last_name").send_keys(surname)
-            browser.find_element_by_id("email_address").send_keys(email)
-            browser.find_element_by_xpath(".//*[@id='primary_cta']/a").click()
+            browser.switch_to.frame(0)
+
+            # Populates current attendee's first/last name & email
+            buyer_first_name = browser.find_element(By.ID, "buyer.N-first_name").send_keys(firstname)
+            buyer_last_name = browser.find_element(By.ID, "buyer.N-last_name").send_keys(surname)
+            buyer_email = browser.find_element(By.ID, "buyer.N-email").send_keys(email)
+            time.sleep(5)
+
+            # Clicks "Submit" button
+            submit_btn = browser.find_element(
+                By.XPATH, '//*[@id="root"]/div/div/div[1]/div/main/div/div[2]/div/div/div[2]/button')
+            submit_btn.click()
             time.sleep(10)
-        except:
-            print("There was a problem adding " + firstname + " " + surname)
+        except Exception as exception:
+            print(exception)
+            print("There was a problem adding {0} {1}".format(
+                firstname, surname))
 
 browser.close()
