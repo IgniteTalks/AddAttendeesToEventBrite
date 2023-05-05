@@ -14,7 +14,7 @@ login = "<Your Eventbrite Username>"
 pwd = "<Your Eventbrite Password>"
 
 # Comma-delimited file containing the firstname, surname and email address of your attendees (see ReadMe for example)
-attendeeList = "attendees_list_example.txt"
+attendeeList = "path_to_the_attendee_list.txt"
 
 # Your Current Event's Information
 eventID = "123456" # Open your event then see the URL to obtain the ID, eg https://www.eventbrite.com/myevent?eid=123456
