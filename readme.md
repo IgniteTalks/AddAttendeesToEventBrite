@@ -10,13 +10,13 @@ This script automates that process, so you can easily import multiple attendees 
 # Getting Started
 ## Setting Up Your Event 
 <i>These steps must be completed prior to running the script.</i>
-1. Log into your EventBrite account and navigate to the event that you wish to add attendees to. Note the event's 'eid' value, which will be shown in the page's URL. E.g. https://www.eventbrite.com/exampleEvent?eid=123456.
-2. Hit the 'Order Options' drop-down menu (found in the lower-left of the event's home page), then select the 'Order Form' option. You will be redirected to a page that looks like [this](https://i.imgur.com/R9WngVM.png).
+1. Log into your EventBrite account and navigate to the event that you wish to add attendees to. Note the event's `eid` value, which will be shown in the page's URL. E.g. https://www.eventbrite.com/exampleEvent?eid=123456.
+2. Hit the `Order Options` drop-down menu (found in the lower-left of the event's home page), then select the `Order Form` option. You will be redirected to a page that looks like [this](https://i.imgur.com/R9WngVM.png).
 3. Select `Create new form from scratch` and on the next page do the following:
-    * In the 'Collect information from' section, make sure the 'Each attendee' box is selected. 
-    * Under 'Collect attendee information on the following tickets', make sure the 'General Admission' is NOT selected.
-4. Hit the 'Manage Attendees' drop-down menu (found in the lower-left of the Home page), then select the 'Add Attendees' option.
-5. On the new page, use your browser's Developer Tools to note the ticket type ID of the event. Right-click the 'Quantity' box and click 'Inspect'. See the following [finding the ID of the quantity field](https://i.imgur.com/isWfSJe.png) example.
+    * In the `Collect information from` section, make sure the `Each attendee` box is selected. 
+    * Under `Collect attendee information on the following tickets`, make sure the `General Admission` is NOT selected.
+4. Hit the `Manage Attendees` drop-down menu (found in the lower-left of the Home page), then select the `Add Attendees` option.
+5. On the new page, use your browser's Developer Tools to note the ticket type ID of the event. Right-click the `Quantity` box and click `Inspect`. See the following [finding the ID of the quantity field](https://i.imgur.com/isWfSJe.png) example.
 6. Open [AddAttendees.py](https://github.com/tsanevp/AddAttendeesToEventBrite/blob/ec2860f62701801223a1ecf22ebe0a312f8dd868/AddAttendees.py) and replace all the placeholder variables you noted in steps 1 and 5.
 
 ## Building and Running The Script
