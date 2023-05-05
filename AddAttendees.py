@@ -30,15 +30,13 @@ except Exception as exception:
     sys.exit(msg)
 
 # Opens Eventbrite "Add Attendees" page, prompts user login first
-browser.get(
-    "https://www.eventbrite.com/attendees-add?eid={0}".format(str(eventID)))
+browser.get("https://www.eventbrite.com/attendees-add?eid={0}".format(eventID))
 username = browser.find_element(By.ID, "email").send_keys(login)
 password = browser.find_element(By.ID, "password").send_keys(pwd)
 time.sleep(2)
 
 # Clicks "Login" button
-loginButton = browser.find_element(
-    By.XPATH, '//*[@id="root"]/div/div[2]/div/div/div/div[1]/div/main/div/div[1]/div/div[2]/div/form/div[4]/div/button')
+loginButton = browser.find_element(By.XPATH, '//*[@id="root"]/div/div[2]/div/div/div/div[1]/div/main/div/div[1]/div/div[2]/div/form/div[4]/div/button')
 loginButton.click()
 time.sleep(10)
 
@@ -50,14 +48,13 @@ with open(attendeeList) as inFile:
         tokens = line.split(",")
         firstname = tokens[0]
         surname = tokens[1]
-        email = tokens[-1]
+        email = tokens[2]
         print("Adding {0} {1} ({2})".format(firstname, surname, email))
 
         # Add each person to the event from the attendee list
         try:
             # Open "Add Attendees" page for current event
-            browser.get(
-                "https://www.eventbrite.com/attendees-add?eid={0}".format(str(eventID)))
+            browser.get("https://www.eventbrite.com/attendees-add?eid={0}".format(eventID))
             time.sleep(10)
 
             # Populates ticket purchase amount for current customer
@@ -77,8 +74,7 @@ with open(attendeeList) as inFile:
             time.sleep(5)
 
             # Clicks "Submit" button
-            submit_btn = browser.find_element(
-                By.XPATH, '//*[@id="root"]/div/div/div[1]/div/main/div/div[2]/div/div/div[2]/button')
+            submit_btn = browser.find_element(By.XPATH, '//*[@id="root"]/div/div/div[1]/div/main/div/div[2]/div/div/div[2]/button')
             submit_btn.click()
             time.sleep(10)
         except Exception as exception:
