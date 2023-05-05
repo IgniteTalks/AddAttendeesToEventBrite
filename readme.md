@@ -11,7 +11,7 @@ This script automates that process, so you can easily import multiple attendees 
 ## Setting Up Your Event 
 <i>These steps must be completed prior to running the script.</i>
 1. Log into your EventBrite account and navigate to the event that you wish to add attendees to. Note the event's 'eid' value, which will be shown in the page's URL. E.g. https://www.eventbrite.com/exampleEvent?eid=123456.
-2. Hit the 'Order Options' drop-down menu (found in the lower-left of the event's home page), then select the 'Order Form' option. You will be redirected to a page that looks like [this](https://imgur.com/gallery/4QG6vaG).
+2. Hit the 'Order Options' drop-down menu (found in the lower-left of the event's home page), then select the 'Order Form' option. You will be redirected to a page that looks like [this](https://i.imgur.com/R9WngVM.png).
 3. Select 'Create new form from scratch' and on the next page do the following:
     * In the 'Collect information from' section, make sure the 'Each attendee' box is selected. 
     * Under 'Collect attendee information on the following tickets', make sure the 'General Admission' is NOT selected.
