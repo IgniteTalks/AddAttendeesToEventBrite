@@ -74,7 +74,7 @@ with open(attendeeList) as inFile:
             time.sleep(5)
 
             # Clicks "Submit" button
-            submit_btn = browser.find_element(By.XPATH, '//*[@id="root"]/div/div/div[1]/div/main/div/div[2]/div/div/div[2]/button')
+            submit_btn = browser.find_element(By.XPATH, '//*[@id="root"]/div/div[2]/div/div/div/div[1]/div/main/div/div[1]/div/div[2]/div/form/div[4]/div/button')
             submit_btn.click()
             time.sleep(10)
         except Exception as exception:
